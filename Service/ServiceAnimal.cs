@@ -26,16 +26,18 @@ namespace AnimalAppApi.Service
             return animalWithId;
         }
 
+        public IList<Animal> GetAllAnimal()
+        {
+            return _fileAnimal.ReadAndDeserialize(_animalPath);
+        }
+
+
         public IList<Animal> Delete(int animalId)
         {
             throw new NotImplementedException();
         }
 
-        public IList<Animal> GetAll()
-        {
-            throw new NotImplementedException();
-        }
-
+       
         public Animal GetDetail(int animalId)
         {
             throw new NotImplementedException();
@@ -55,10 +57,11 @@ namespace AnimalAppApi.Service
 
         private int GetId()
         {
-            if (_animalList.Count == 0)
+            var animal = _fileAnimal.ReadAndDeserialize(_animalPath);
+            if (animal.Count()==0)
                 return 1;
 
-            return _animalList.Max(animal => animal.AnimalId) + 1;
+            return animal.Max(animal => animal.AnimalId) + 1;
         }
 
     }

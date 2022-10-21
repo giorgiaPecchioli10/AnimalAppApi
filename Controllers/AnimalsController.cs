@@ -19,17 +19,20 @@ namespace AnimalAppApi.Controllers
         }
 
 
-
+        [HttpGet]
+        public IActionResult GetAll()
+        {
+            var allAnimal = _animalService.GetAllAnimal();
+            if(allAnimal == null)
+                return NotFound("Animale non trovato");
+            return Ok(allAnimal);
+        }
 
 
 
 
         // GET: api/<AnimalsController>
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
+
 
         // GET api/<AnimalsController>/5
         [HttpGet("{id}")]

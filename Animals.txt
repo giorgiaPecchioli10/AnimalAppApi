@@ -1,1 +1,1 @@
-﻿
+[{"AnimalId":1,"Species":"string","Weight":0,"Height":0}]
