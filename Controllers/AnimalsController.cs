@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AnimalAppApi.Models;
+using AnimalAppApi.Service;
+using AnimalAppApi.Service.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 
 namespace AnimalAppApi.Controllers
 {
@@ -6,6 +9,21 @@ namespace AnimalAppApi.Controllers
     [ApiController]
     public class AnimalsController : ControllerBase
     {
+        private IService _animalService = new ServiceAnimal();
+
+        [HttpPost]
+        public IActionResult Post([FromBody] PostAnimalModel postAnimalModel)
+        {
+            var animalToAdd = _animalService.Create(postAnimalModel);
+            return Created("",animalToAdd);
+        }
+
+
+
+
+
+
+
         // GET: api/<AnimalsController>
         [HttpGet]
         public IEnumerable<string> Get()
@@ -21,10 +39,7 @@ namespace AnimalAppApi.Controllers
         }
 
         // POST api/<AnimalsController>
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
+       
 
         // PUT api/<AnimalsController>/5
         [HttpPut("{id}")]

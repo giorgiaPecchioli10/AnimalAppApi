@@ -1,12 +1,14 @@
-﻿namespace AnimalAppApi.Service.Interfaces
+﻿using AnimalAppApi.Models;
+
+namespace AnimalAppApi.Service.Interfaces
 {
     public interface IService
     {
-        public T Create<T>(T ojb);
-        public IEnumerable<T> GetAll<T>();
-        public T GetDetail<T>(int id);
-        public T Put<T>(int id);
-        public IEnumerable<T> Delete<T>(int id);
+        public Animal Create(PostAnimalModel animal);
+        public IList<Animal> GetAll();
+        public Animal GetDetail(int animalId);
+        public Animal Put(int animalId);
+        public IList<Animal> Delete(int animalId);
 
     }
 }

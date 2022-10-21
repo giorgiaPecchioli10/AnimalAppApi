@@ -1,32 +1,65 @@
-﻿using AnimalAppApi.Service.Interfaces;
+﻿using AnimalAppApi.Models;
+using AnimalAppApi.Service.Interfaces;
+using System.Text;
 
 namespace AnimalAppApi.Service
 {
     public class ServiceAnimal : IService
     {
-        public T Create<T>(T ojb)
+        private static readonly string _animalPath = "Animals.txt";
+
+        private IList<Animal> _animalList = new List<Animal>();
+
+        private FileAnimal _fileAnimal = new FileAnimal();
+
+        public Animal Create(PostAnimalModel postAnimalModel)
+        {
+            var animalWithId = new Animal();
+            animalWithId.AnimalId = GetId();
+            animalWithId.Weight = postAnimalModel.Weight;
+            animalWithId.Height = postAnimalModel.Height;
+            animalWithId.Species = postAnimalModel.Species;
+
+            var animals = _fileAnimal.ReadAndDeserialize(_animalPath);
+            animals.Add(animalWithId);
+            _fileAnimal.WriteAndSerialize(_animalPath,animals);
+            return animalWithId;
+        }
+
+        public IList<Animal> Delete(int animalId)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<T> Delete<T>(int id)
+        public IList<Animal> GetAll()
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<T> GetAll<T>()
+        public Animal GetDetail(int animalId)
         {
             throw new NotImplementedException();
         }
 
-        public T GetDetail<T>(int id)
+        public Animal Put(int animalId)
         {
             throw new NotImplementedException();
         }
 
-        public T Put<T>(int id)
+        //public ServiceAnimal(IList<Animal> animalList)
+        //{
+        //    _animalList = animalList;
+        //}
+
+
+
+        private int GetId()
         {
-            throw new NotImplementedException();
+            if (_animalList.Count == 0)
+                return 1;
+
+            return _animalList.Max(animal => animal.AnimalId) + 1;
         }
+
     }
 }
