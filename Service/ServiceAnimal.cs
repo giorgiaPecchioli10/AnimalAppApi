@@ -31,18 +31,31 @@ namespace AnimalAppApi.Service
             return _fileAnimal.ReadAndDeserialize(_animalPath);
         }
 
-
-        public IList<Animal> Delete(int animalId)
+        public Animal? GetDetail(int animalId)
         {
-            throw new NotImplementedException();
+            var animalRead = _fileAnimal.ReadAndDeserialize(_animalPath);
+            var animalById = animalRead.FirstOrDefault(animal=>animal.AnimalId==animalId);
+            return animalById;
+        }
+
+
+        public IList<Animal>? Delete(int animalId)
+        {
+            var animalRead = _fileAnimal.ReadAndDeserialize(_animalPath);
+            var animalById = animalRead.FirstOrDefault(animal => animal.AnimalId == animalId);
+            if (animalById != null)
+            {
+                animalRead.Remove(animalById);
+                _fileAnimal.WriteAndSerialize(_animalPath,animalRead);
+                return animalRead;
+            }
+            return null;
+            
+           
         }
 
        
-        public Animal GetDetail(int animalId)
-        {
-            throw new NotImplementedException();
-        }
-
+      
         public Animal Put(int animalId)
         {
             throw new NotImplementedException();

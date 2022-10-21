@@ -28,21 +28,32 @@ namespace AnimalAppApi.Controllers
             return Ok(allAnimal);
         }
 
+        [HttpGet("{animalId}")]
+        public IActionResult GetById(int animalId)
+        {
 
+            var animal = _animalService.GetDetail(animalId);
+            if (animal == null)
+                return NoContent();
+            return Ok(animal);
+        }
 
+        [HttpDelete("{animalId}")]
+        public IActionResult Delete(int animalId)
+        {
+            var animalToDelete=_animalService.Delete(animalId);
+            if (animalToDelete == null)
+                return NoContent();
+            return Ok();
+        }
 
         // GET: api/<AnimalsController>
 
 
         // GET api/<AnimalsController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
 
         // POST api/<AnimalsController>
-       
+
 
         // PUT api/<AnimalsController>/5
         [HttpPut("{id}")]
@@ -51,9 +62,6 @@ namespace AnimalAppApi.Controllers
         }
 
         // DELETE api/<AnimalsController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
+        
     }
 }

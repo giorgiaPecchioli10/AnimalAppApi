@@ -6,9 +6,9 @@ namespace AnimalAppApi.Service.Interfaces
     {
         public Animal Create(PostAnimalModel animal);
         public IList<Animal> GetAllAnimal();
-        public Animal GetDetail(int animalId);
+        public Animal? GetDetail(int animalId);
         public Animal Put(int animalId);
-        public IList<Animal> Delete(int animalId);
+        public IList<Animal>? Delete(int animalId);
 
     }
 }
